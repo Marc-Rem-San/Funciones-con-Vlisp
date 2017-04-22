@@ -1,41 +1,41 @@
 
-;Lista de datos de definición arrojada por "entget"
+;Lista de datos de definiciÃ³n arrojada por "entget"
 (defun c:entget ()
   (while (not (setq ss_object (ssget "_:S+."))))
   (setq list_entget (entget (ssname ss_object 0)))
-  (princ "\t\t\tLista de datos de definición arrojada por \"entget\": ") (terpri)
+  (princ "\t\t\tLista de datos de definiciÃ³n arrojada por \"entget\": ") (terpri)
   (setq counter 0)  
   (repeat (length list_entget)
     (princ "\t\t\t\t\t\t\t\t\t\t\t") (princ (nth counter list_entget)) (terpri) 
     (setq counter (1+ counter))
   ) 
-  (princ "\t\t\tNúmero de datos: ") (princ (length list_entget)) (terpri) (textpage)
+  (princ "\t\t\tNÃºmero de datos: ") (princ (length list_entget)) (terpri) (textpage)
   (progn
     (setq file_answer_r (open "c:\\Lisp_MERS\\Comandos_MERS\\mostrar lista de datos en pantalla de texto\\answer.txt" "r"))
     (setq answer_0 (read-line file_answer_r))
     (close file_answer_r)
   )
-  (initget "Sí No")
+  (initget "SÃ­ No")
   (while
-    (= (if (not (setq answer (getkword (strcat "\nMostrar lista de definición especificando un código de entidad  [Sí/No] <" answer_0 ">: "))))
+    (= (if (not (setq answer (getkword (strcat "\nMostrar lista de definiciÃ³n especificando un cÃ³digo de entidad  [SÃ­/No] <" answer_0 ">: "))))
 	 (setq answer answer_0)
 	 (setq answer answer)
        )
-       "Sí"
+       "SÃ­"
     )    
     (progn
       (terpri)
       (princ "---------------------------------------------------------------------------------------") (terpri)  
-      ;Lista de datos de un nombre de entidad asociado al código aportado
+      ;Lista de datos de un nombre de entidad asociado al cÃ³digo aportado
       (while
 	(progn
 	  (initget 1)
-	  (if (setq assoc_code (assoc (getint "\nEspecifique código de entidad: ") list_entget))
+	  (if (setq assoc_code (assoc (getint "\nEspecifique cÃ³digo de entidad: ") list_entget))
 	    (/= (type (setq ename_code (cdr assoc_code))) 'ename)
 	    (not nil)
 	  )
 	)
-	(prompt "ADVERTENCIA: el código especificado debe corresponder a una entidad") (terpri) (textpage)
+	(prompt "ADVERTENCIA: el cÃ³digo especificado debe corresponder a una entidad") (terpri) (textpage)
       )
       (setq list_entget_code (entget ename_code))      
       (princ "\t\t\tLista de datos de \"") (princ ename_code ) (princ "\" arrojada por \"entget\": ") (terpri)
@@ -44,7 +44,7 @@
 	(princ "\t\t\t\t\t\t\t\t\t\t\t") (princ (nth counter list_entget_code)) (terpri)
 	(setq counter (1+ counter))
       )
-      (princ "\t\t\tNúmero de datos: ") (princ (length list_entget_code)) (terpri) (textpage)
+      (princ "\t\t\tNÃºmero de datos: ") (princ (length list_entget_code)) (terpri) (textpage)
       (progn
 	(setq file_answer_w (open "c:\\Lisp_MERS\\Comandos_MERS\\mostrar lista de datos en pantalla de texto\\answer.txt" "w"))
 	(write-line answer file_answer_w)
@@ -55,7 +55,7 @@
 	(setq answer_0 (read-line file_answer_r))
 	(close file_answer_r)
       )
-      (initget "Sí No")
+      (initget "SÃ­ No")
     )
   )
   (progn
@@ -76,21 +76,21 @@
     (princ "\t\t\t\t\t\t\t\t\t\t\t") (princ (nth counter list_nentsel)) (terpri) 
     (setq counter (1+ counter))
   )
-  (princ "\t\t\tNúmero de datos: ") (princ (length list_nentsel)) (terpri)
+  (princ "\t\t\tNÃºmero de datos: ") (princ (length list_nentsel)) (terpri)
   (setq list_entget (entget (car list_nentsel)))
   (princ "---------------------------------------------------------------------------------------") (terpri)
-  (princ "\t\t\tLista de datos de definición de \"") (princ (car list_nentsel)) (princ "\" arrojada por \"entget\": ")  (terpri) (terpri)
+  (princ "\t\t\tLista de datos de definiciÃ³n de \"") (princ (car list_nentsel)) (princ "\" arrojada por \"entget\": ")  (terpri) (terpri)
   (setq counter 0)
   (repeat (length list_entget)
     (princ "\t\t\t\t\t\t\t\t\t\t\t") (princ (nth counter list_entget)) (terpri) 
     (setq counter (1+ counter))
   ) 
-  (princ "\t\t\tNúmero de datos: ") (princ (length list_entget)) (terpri) (textpage)
+  (princ "\t\t\tNÃºmero de datos: ") (princ (length list_entget)) (terpri) (textpage)
   (princ)
 )
 (prompt "\n\t\tComando \"nentsel\" cargado") (textpage)
 
-;Lista de datos de definición arrojada por "entget" para un elemento que pertenece a una tabla de símbolos
+;Lista de datos de definiciÃ³n arrojada por "entget" para un elemento que pertenece a una tabla de sÃ­mbolos
 (defun c:entget_elemento_tabla ()
   (progn
     (setq file_r (open "c:\\Lisp_MERS\\Comandos_MERS\\mostrar lista de datos en pantalla de texto\\datos_get.txt" "r"))
@@ -112,7 +112,7 @@
   (if (tblobjname symbol_table_name symbol_name)
     (progn
       (setq list_symbol_name (entget (tblobjname symbol_table_name symbol_name))) (terpri)
-      (princ "\t\t\tLista de datos de definición arrojada por \"entget\"") (terpri)
+      (princ "\t\t\tLista de datos de definiciÃ³n arrojada por \"entget\"") (terpri)
       (princ (strcat "\t\t\tdel elemento \"" symbol_name "\"")) (terpri)
       (princ (strcat "\t\t\tperteneciente a la tabla \"" symbol_table_name "\": ")) (terpri)
       (setq counter 0)
@@ -120,11 +120,12 @@
 	(princ "\t\t\t\t\t\t\t\t\t\t\t") (princ (nth counter list_symbol_name)) (terpri)
 	(setq counter (1+ counter))
       )
-      (princ "\t\t\tNúmero de datos: ") (princ (length list_symbol_name)) (terpri)
+      (princ "\t\t\tNÃºmero de datos: ") (princ (length list_symbol_name)) (terpri)
     )
-    (princ (strcat "\n\t\t\ADVERTENCIA: La tabla de símbolos \"" symbol_table_name "\" \n\t\tno contiene ningún elemento de nombre \"" symbol_name "\" "))
+    (princ (strcat "\n\t\t\ADVERTENCIA: La tabla de sÃ­mbolos \"" symbol_table_name "\" \n\t\tno contiene ningÃºn elemento de nombre \"" symbol_name "\" "))
   )
   (textpage)
   (princ)  
 )
 (prompt "\n\t\tComando \"entget_elemento_tabla\" cargado") (textpage)
+;nueva linea
